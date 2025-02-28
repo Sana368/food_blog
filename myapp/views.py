@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import ContactMessage
+
 
 
 def index(request):
@@ -18,10 +20,24 @@ def blog(request):
 def menu(request):
     return render(request,"coffees.html")
 
+
 def contact(request):
-    if request.method =='POST':
-        name =request.POST.get()
-    return render(request,"contact.html")
+        if request.method == "POST":
+            name = request.POST.get('name', '')
+            email = request.POST.get('email', '')
+            phone_number = request.POST.get('phone_number', '')
+            message = request.POST.get('message', '')
+            if name and email and phone_number and message:
+                ContactMessage.objects.create(name=name, email=email, phone_number=phone_number, message=message)
+                messages.success(request, "Your message has been sent successfully!")
+                return redirect('contact')
+            else:
+                messages.error(request, "Please fill in all fields.")
+    
+    # Render the contact form
+        return render(request, 'contact.html')
+
+    
 
 def login1_view(request):
     if request.method =='POST':
