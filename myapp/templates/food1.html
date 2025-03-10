@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Product</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Header Styling */
+header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+header .logo h1 {
+  font-size: 2rem;
+}
+
+/* Product Page Styling */
+.product-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  width: 350px;
+  object-fit: cover;
+}
+
+.product-details {
+  margin-left: 2rem;
+  max-width: 400px;
+}
+
+.product-details h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.product-details .description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.product-details h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.product-details .ingredients {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.product-details .ingredients li {
+  margin-bottom: 0.5rem;
+}
+
+.product-details .price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.button-group .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-group .add-to-cart {
+  background-color: #28a745;
+  color: white;
+}
+
+.button-group .add-to-cart:hover {
+  background-color: #218838;
+}
+
+.button-group .buy-now {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-group .buy-now:hover {
+  background-color: #0056b3;
+}
+
+/* Footer Styling */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #333;
+  color: white;
+  margin-top: 3rem;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="logo">
+      <h1>Foodie Store</h1>
+    </div>
+  </header>
+
+  <!-- Product Section -->
+  <section class="product-page">
+    <div class="product-image">
+      <img src="http://127.0.0.1:8087/static/images/img-2.png" alt="Delicious Food">
+    </div>
+    <div class="product-details">
+      <h2>Brain Power Blueberry Smoothie</h2>
+      <p class="description">
+        Healthy eating month continues on Gimme Some Oven today with a smoothie I’ve been hooked on lately. It’s basically a blueberry avocado smoothie recipe, but I like to call it my brain power smoothie because it’s chocked full of tasty ingredients that are good for brain health.
+      </p>
+      <h3>Ingredients:</h3>
+      <ul class="ingredients">
+        <li>1 cup fresh-pressed apple juice</li>
+        <li>1 fresh ripe banana</li>
+        <li>1 1/2 cups frozen blueberries</li>
+        <li>1/2 cup frozen raspberries</li>
+        <li>1/4 cup raw walnuts , preferably soaked and drained</li>
+        <li>3 cups baby spinach</li>
+        <li>1 avocado</li>
+        <li>1/2 cups walnuts (AIP - omit)</li>
+        <li>3/4 cups pomegranate juice (no sugar)</li>
+        <li></li>1 1/4 cups coconut milk or almond milk</li>
+        
+      </ul>
+      <span class="price">$8.99</span>
+      
+      <!-- Button Group -->
+      <div class="button-group">
+        <button class="btn add-to-cart">Add to Cart</button>
+        <button class="btn buy-now">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 Foodie Store. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>

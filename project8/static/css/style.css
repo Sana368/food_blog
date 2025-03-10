@@ -821,6 +821,26 @@ textarea#comment.massage-bt::placeholder {
     margin: 0 auto;
     text-align: center;
 }
+
+/* .send_bt a {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #fefefd;
+    background-color: #d07d6b;
+    padding: 10px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    display: block;
+    font-weight: bold;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.send_bt a:hover {
+    color: #fefefd;
+    background-color: #4a4949;
+} */
 /* Styling the SEND button */
 .send_bt button {
     background-color: #4CAF50; /* Green background color */
@@ -843,27 +863,6 @@ textarea#comment.massage-bt::placeholder {
     outline: none; /* Remove default outline */
     box-shadow: 0 0 5px rgba(72, 240, 128, 0.5); /* Add a green glow on focus */
 }
-
-
-/* .send_bt a {
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    color: #fefefd;
-    background-color: #d07d6b;
-    padding: 10px;
-    text-transform: uppercase;
-    margin-top: 20px;
-    display: block;
-    font-weight: bold;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-}
-
-.send_bt a:hover {
-    color: #fefefd;
-    background-color: #4a4949;
-} */
 
 .map_main {
     width: 100%;

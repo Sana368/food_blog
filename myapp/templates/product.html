@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Products</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+/* Product Section */
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+h2 {
+  margin: 15px 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+p {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: #E67E22;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.buy-btn, .add-to-cart-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.buy-btn {
+  background-color: #E67E22;
+  color: #fff;
+}
+
+.buy-btn:hover {
+  background-color: #D35400;
+}
+
+.add-to-cart-btn {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .product-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Our Delicious Food Products</h1>
+  </header>
+
+  <section class="product-container">
+    <div class="product">
+        <a href="{% url 'product_detail' pk=1 %}">
+          <img src="{% static 'images/img-1.png' %}" alt="Chocolate Cake">
+          <h2>The Best Spaghetti Meat SauceBeauz</h2>
+          <p>Spaghetti with meat sauce is one of my never fail go-to meals. It is especially great to make on a Sunday to have leftovers for Monday. My goal in life is to never have to worry about cooking on a Monday, so Sunday dinners have to be abundant with plenty left for a possible packed lunch the next day, as well as dinner.</p>
+          <span class="price">$12.99</span>
+        </a>
+        <div class="buttons">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product">
+        <a href="{% url 'product_detail' pk=2 %}">
+          <img src="{% static 'images/img-2.png' %}" alt="Cheese Pizza">
+          <h2>Brain Power Blueberry Smoothie</h2>
+          <p>Healthy eating month continues on Gimme Some Oven today with a smoothie I’ve been hooked on lately. It’s basically a blueberry avocado smoothie recipe, but I like to call it my brain power smoothie because it’s chocked full of tasty ingredients that are good for brain health.</p>
+          <span class="price">$8.99</span>
+        </a>
+        <div class="buttons">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      
+      <div class="product">
+        <a href="{% url 'product_detail' pk=3 %}">
+          <img src="{% static 'images/img-3.png' %}" alt="Caesar Salad">
+          <h2>Perfect avocado toast for breakfast</h2>
+          <p>Every home cook needs a good basic Avocado toast recipe for a quick, healthy, and satisfying breakfast or snack. Add a bit of flair and make vegan avocado toast with garlic bread for an extra flavorful version that’s great to load up with your favorite savory toppings. My step-by-step instructions with photos will show you how it’s done in just 15 minutes.</p>
+          <span class="price">$6.49</span>
+        </a>
+        <div class="buttons">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      
+  </section>
+
+</body>
+</html>
