@@ -5,79 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        /* General reset for margin and padding */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
+        /* Background and font settings */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px 0;
+        }
+
         .container {
             width: 80%;
             margin: 0 auto;
             background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
+
         h1 {
             text-align: center;
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-bottom: 30px;
         }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+
         th, td {
-            padding: 12px;
-            text-align: left;
+            padding: 15px;
+            text-align: center;
         }
+
         th {
             background-color: #f4f4f4;
+            color: #555;
         }
+
         td {
             background-color: #fff;
         }
-        input[type="number"] {
-            width: 50px;
-            padding: 5px;
-            margin-right: 10px;
+
+        img.product-image {
+            max-width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
         }
-        button {
-            padding: 5px 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
+
         .total {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            margin-top: 20px;
             text-align: right;
+            margin-top: 20px;
+            color: #333;
         }
+
         .actions {
             text-align: center;
             margin-top: 30px;
         }
+
         .actions a {
-            padding: 10px 20px;
+            padding: 12px 30px;
             background-color: #007bff;
-            color: white;
+            color: #fff;
             text-decoration: none;
             border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
+
         .actions a:hover {
             background-color: #0056b3;
         }
-        .product-image {
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: cover;
+
+        /* Form styling */
+        input[type="number"] {
+            padding: 8px;
+            font-size: 14px;
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .remove-button {
+            padding: 8px 15px;
+            background-color: #dc3545;
+            font-size: 14px;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Empty cart styling */
+        .empty-cart {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
         }
     </style>
 </head>
@@ -111,19 +168,19 @@
                             </td>
                             <td>${{ item.product.price }}</td>
                             <td>
-                                <form method="POST" action="{% url 'cart_page' %}">
+                                <form method="POST" action="{% url 'update_cart' item.id %}">
                                     {% csrf_token %}
                                     <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
-                                    <input type="hidden" name="item_id" value="{{ item.id }}">
                                     <button type="submit">Update</button>
                                 </form>
+                                
                             </td>
                             <td>${{ item.get_total_price }}</td>
                             <td>
                                 <form method="POST" action="{% url 'cart_page' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="item_id" value="{{ item.id }}">
-                                    <button type="submit" name="remove">Remove</button>
+                                    <button type="submit" name="remove" class="remove-button">Remove</button>
                                 </form>
                             </td>
                         </tr>
@@ -131,8 +188,9 @@
                 </tbody>
             </table>
 
+            <!-- Total price displayed here -->
             <div class="total">
-                <p>Total: ${{ cart.get_total }}</p>
+                <p><strong>Total: ${{ total_price }}</strong></p>
             </div>
 
             <div class="actions">
@@ -140,7 +198,9 @@
             </div>
 
         {% else %}
-            <p>Your cart is empty.</p>
+            <div class="empty-cart">
+                <p>Your cart is empty.</p>
+            </div>
         {% endif %}
     </div>
 
