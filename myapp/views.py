@@ -123,43 +123,60 @@ from .models import CartItem  # Assuming CartItem model exists for the user's ca
  # If you have a form for billing details
 from django.http import Http404
 
-def checkout(request):
-    # Get the cart items of the logged-in user
-    cart_items = CartItem.objects.filter(user=request.user)
+# def checkout(request):
+#     # Get the cart items of the logged-in user
+#     cart_items = CartItem.objects.filter(user=request.user)
     
-    if not cart_items:
-        # If no items in the cart, redirect to the cart page
-        messages.error(request, "Your cart is empty.")
-        return redirect('cart_page')
+#     # if not cart_items:
+#     #     # If no items in the cart, redirect to the cart page
+#     #     messages.error(request, "Your cart is empty.")
+#     #     return redirect('cart_page')
 
-    # Calculate total price for the cart items
-    total_price = sum(item.get_total_price() for item in cart_items)
+#     # Calculate total price for the cart items
+#     total_price = sum(item.get_total_price() for item in cart_items)
     
-    if request.method == 'POST':
-        # Handle form submission
-        full_name = request.POST.get('full_name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        address = request.POST.get('address')
+#     if request.method == 'POST':
+#         # Handle form submission
+#         full_name = request.POST.get('full_name')
+#         email = request.POST.get('email')
+#         phone = request.POST.get('phone')
+#         address = request.POST.get('address')
 
-        if not full_name or not email or not phone or not address:
-            messages.error(request, "Please fill in all the billing details.")
-            return redirect('checkout')
+#         if not full_name or not email or not phone or not address:
+#             messages.error(request, "Please fill in all the billing details.")
+#             return redirect('checkout')
         
-        # Optionally, you can save the billing details to a model, e.g.:
-        # Order.objects.create(user=request.user, total_price=total_price, 
-        #                      full_name=full_name, email=email, phone=phone, address=address)
-        
-        # For now, just show a success message and proceed to the next step
-        messages.success(request, "Checkout successful. Proceed to payment.")
 
-        # After successful checkout, redirect to a payment gateway or confirmation page
-        return redirect('payment')  # Adjust with actual payment handling page or logic
+#           order = Order.objects.create(
+#             user=request.user,
+#             total_price=total_price,
+#             full_name=full_name,
+#             email=email,
+#             phone=phone,
+#             address=address
+#         )
+        
+#         # Save each cart item as an order item
+#         for item in cart_items:
+#             OrderItem.objects.create(
+#                 order=order,
+#                 product=item.product,
+#                 quantity=item.quantity,
+#                 price=item.product.price
+#             )
+#             item.delete()  # Clear cart after order placement
+        
+#         messages.success(request, "Checkout successful. Proceed to payment.")
+
+#         # Redirect to a payment gateway or confirmation page
+#         return redirect('order_summary', order_id=order.id)  # Adjusted redirect with order_id
     
-    return render(request, 'checkout.html', {
-        'cart_items': cart_items,
-        'total_price': total_price
-    })
+#     return render(request, 'checkout.html', {
+#         'cart_items': cart_items,
+#         'total_price': total_price
+#     })
+
+
 
 
 from django.shortcuts import render, redirect
@@ -273,5 +290,89 @@ def update_cart(request, item_id):
     # If the request method is not POST, redirect back to the cart page
     return redirect('cart_page')
 
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import  CartItem, Order, OrderItem
+
+def checkout(request):
+    # Get the cart items of the logged-in user
+    cart_items = CartItem.objects.filter(user=request.user)
+    
+    # if not cart_items:
+    #     # If no items in the cart, redirect to the cart page
+    #     messages.error(request, "Your cart is empty.")
+    #     return redirect('cart_page')
+
+    # Calculate total price for the cart items
+    total_price = sum(item.get_total_price() for item in cart_items)
+    
+    if request.method == 'POST':
+        # Handle form submission
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+
+        if not full_name or not email or not phone or not address:
+            messages.error(request, "Please fill in all the billing details.")
+            return redirect('checkout')
+        
+        # Save the order details
+        order = Order.objects.create(
+            user=request.user,
+            total_price=total_price,
+            full_name=full_name,
+            email=email,
+            phone=phone,
+            address=address
+        )
+        
+        # Save each cart item as an order item
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+            item.delete()  # Clear cart after order placement
+        
+        messages.success(request, "Checkout successful. Proceed to payment.")
+
+        # Redirect to a payment gateway or confirmation page
+        return redirect('order_summary', order_id=order.id)  # Adjusted redirect with order_id
+    
+    return render(request, 'checkout.html', {
+        'cart_items': cart_items,
+        'total_price': total_price
+    })
+
+def order_summary(request, order_id):
+    order = Order.objects.filter(id=order_id, user=request.user).first()
+    if not order:
+        messages.error(request, 'Order not found.')
+        return redirect('cart')
+    order_items = OrderItem.objects.filter(order=order)
+    
+    total_quantity = sum(item.quantity for item in order_items)
+    total_price = sum(item.quantity * item.price for item in order_items)
+    
+    order_items_with_names = [
+        {
+            'product_name': item.product.name,
+            'quantity': item.quantity,
+            'price': item.price,
+            'total': item.quantity * item.product.price
+        }
+        for item in order_items
+    ]
+    
+    return render(request, 'order_summary.html', {
+        'order': order,
+        'order_items': order_items, 
+        'total_quantity': total_quantity, 
+        'total_price': total_price
+    })
 
 
