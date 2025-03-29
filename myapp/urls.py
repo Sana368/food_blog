@@ -6,7 +6,7 @@ urlpatterns=[
     path('blog/',views.blog,name='blog'),
     path('menu/',views.menu,name='menu'),
     path('contact/',views.contact,name='contact'),
-    path('login1_view/',views.login1_view,name='login1_view'),
+    path('login/',views.login1_view,name='login1_view'),
     path('signup/',views.signup,name='signup'),
     path('product/',views.food_product,name='food_product'),
     path('product/<int:pk>/', views.product_detail, name='product_detail'),
@@ -16,6 +16,10 @@ urlpatterns=[
     path('checkout/',views.checkout,name='checkout'),
     path('update_cart/<int:item_id>/', views.update_cart, name='update_cart'),
     path('order_summary/<int:order_id>/',views.order_summary,name='order_summary'),
+    path('razorpay/payment/', views.razorpay_payment, name='razorpay_payment'),
+    path('receipt/', views.receipt, name='receipt'),
+    path('receipt-history/', views.receipt_history, name='receipt_history'),
+    path('logout/',views.user_logout,name='user_logout'),
 
     
     

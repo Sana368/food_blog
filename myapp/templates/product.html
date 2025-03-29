@@ -1,170 +1,244 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Food Products</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
   <style>
     /* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding: 20px;
-}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
 
-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
+    /* Menu Bar */
+    nav {
+      background-color: #2c3e50;
+      padding: 15px;
+    }
 
-h1 {
-  font-size: 2.5rem;
-  color: #333;
-}
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+    }
 
-/* Product Section */
-.product-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+    nav ul li {
+      margin: 0 20px;
+    }
 
-.product {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
+    nav ul li a {
+      color: #fff;
+      font-size: 1.1rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
 
-.product img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
+    nav ul li a:hover {
+      color: #e74c3c;
+    }
 
-h2 {
-  margin: 15px 0;
-  font-size: 1.5rem;
-  color: #333;
-}
+    /* Header Section */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-p {
-  font-size: 1rem;
-  color: #777;
-  margin-bottom: 15px;
-}
+    h1 {
+      font-size: 2.5rem;
+      color: #2c3e50;
+    }
 
-.price {
-  font-size: 1.2rem;
-  color: #E67E22;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    /* Product Section */
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
+    .product {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.buy-btn, .add-to-cart-btn {
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
 
-.buy-btn {
-  background-color: #E67E22;
-  color: #fff;
-}
+    .product img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
 
-.buy-btn:hover {
-  background-color: #D35400;
-}
+    .product img:hover {
+      transform: scale(1.05);
+    }
 
-.add-to-cart-btn {
-  background-color: #3498db;
-  color: #fff;
-}
+    h2 {
+      margin: 15px 0;
+      font-size: 1.3rem;
+      color: #2c3e50;
+    }
 
-.add-to-cart-btn:hover {
-  background-color: #2980b9;
-}
+    .description {
+      font-size: 1rem;
+      color: #7f8c8d;
+      margin-bottom: 15px;
+    }
 
-@media (max-width: 768px) {
-  .product-container {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+    .price {
+      font-size: 1.4rem;
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
 
-@media (max-width: 480px) {
-  .product-container {
-    grid-template-columns: 1fr;
-  }
-}
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .buy-btn, .add-to-cart-btn {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      flex: 1;
+      text-transform: uppercase;
+    }
+
+    .buy-btn {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .buy-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .add-to-cart-btn {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #27ae60;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .product-container {
+        grid-template-columns: 1fr 1fr;
+      }
+      .buttons {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-container {
+        grid-template-columns: 1fr;
+      }
+    }
 
   </style>
 </head>
 <body>
 
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <!-- <li><a href="{% url 'menu' %}">Menu</a></li> -->
+      <li><a href="{% url 'food_product' %}">Shop</a></li>
+      <li><a href="{% url 'blog' %}">Blog</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+      <li><a href="{% url 'receipt_history' %}">Receipt</a></li>
+      <li><a href="{% url 'user_logout' %}">LOGOUT</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header Section -->
   <header>
     <h1>Our Delicious Food Products</h1>
   </header>
 
+  <!-- Product Section -->
   <section class="product-container">
+    <!-- Product 1 -->
     <div class="product">
-        <a href="{% url 'product_detail' pk=1 %}">
-          <img src="{% static 'images/img-1.png' %}" alt="Chocolate Cake">
-          <h2>The Best Spaghetti Meat SauceBeauz</h2>
-          <p>Spaghetti with meat sauce is one of my never fail go-to meals. It is especially great to make on a Sunday to have leftovers for Monday. My goal in life is to never have to worry about cooking on a Monday, so Sunday dinners have to be abundant with plenty left for a possible packed lunch the next day, as well as dinner.</p>
-          <span class="price">$12.99</span>
-        </a>
-        <div class="buttons">
-          <button class="buy-btn">Buy Now</button>
-          <button class="add-to-cart-btn">Add to Cart</button>
-        </div>
+      <a href="{% url 'product_detail' pk=1 %}">
+        <img src="{% static 'images/img-1.png' %}" alt="Spaghetti">
+        <h2>The Best Spaghetti Meat Sauce</h2>
+      </a>
+      <p class="description">A rich and flavorful spaghetti with meat sauce, perfect for a hearty meal.</p>
+      <span class="price">$12.99</span>
+      <div class="buttons">
+        <button class="buy-btn">Buy Now</button>
+        <button class="add-to-cart-btn">Add to Cart</button>
       </div>
-      
-      <div class="product">
-        <a href="{% url 'product_detail' pk=2 %}">
-          <img src="{% static 'images/img-2.png' %}" alt="Cheese Pizza">
-          <h2>Brain Power Blueberry Smoothie</h2>
-          <p>Healthy eating month continues on Gimme Some Oven today with a smoothie I’ve been hooked on lately. It’s basically a blueberry avocado smoothie recipe, but I like to call it my brain power smoothie because it’s chocked full of tasty ingredients that are good for brain health.</p>
-          <span class="price">$8.99</span>
-        </a>
-        <div class="buttons">
-          <button class="buy-btn">Buy Now</button>
-          <button class="add-to-cart-btn">Add to Cart</button>
-        </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product">
+      <a href="{% url 'product_detail' pk=2 %}">
+        <img src="{% static 'images/img-2.png' %}" alt="Blueberry Smoothie">
+        <h2>Brain Power Blueberry Smoothie</h2>
+      </a>
+      <p class="description">A refreshing smoothie packed with blueberries and nutrients for brain health.</p>
+      <span class="price">$8.99</span>
+      <div class="buttons">
+        <button class="buy-btn">Buy Now</button>
+        <button class="add-to-cart-btn">Add to Cart</button>
       </div>
-      
-      <div class="product">
-        <a href="{% url 'product_detail' pk=3 %}">
-          <img src="{% static 'images/img-3.png' %}" alt="Caesar Salad">
-          <h2>Perfect avocado toast for breakfast</h2>
-          <p>Every home cook needs a good basic Avocado toast recipe for a quick, healthy, and satisfying breakfast or snack. Add a bit of flair and make vegan avocado toast with garlic bread for an extra flavorful version that’s great to load up with your favorite savory toppings. My step-by-step instructions with photos will show you how it’s done in just 15 minutes.</p>
-          <span class="price">$6.49</span>
-        </a>
-        <div class="buttons">
-          <button class="buy-btn">Buy Now</button>
-          <button class="add-to-cart-btn">Add to Cart</button>
-        </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product">
+      <a href="{% url 'product_detail' pk=3 %}">
+        <img src="{% static 'images/img-3.png' %}" alt="Avocado Toast">
+        <h2>Perfect Avocado Toast for Breakfast</h2>
+      </a>
+      <p class="description">A delicious avocado toast on garlic bread, topped with fresh ingredients.</p>
+      <span class="price">$6.49</span>
+      <div class="buttons">
+        <button class="buy-btn">Buy Now</button>
+        <button class="add-to-cart-btn">Add to Cart</button>
       </div>
-      
+    </div>
+
   </section>
 
 </body>

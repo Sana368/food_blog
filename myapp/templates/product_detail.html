@@ -12,96 +12,114 @@
       box-sizing: border-box;
     }
 
-    /* Body styling */
+    /* Body Styling */
     body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f7f7f7;
       color: #333;
-      padding: 40px 15px;
+      line-height: 1.6;
+      padding: 40px 0;
     }
 
     /* Product Detail Section */
     .product-detail {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-wrap: wrap;
       gap: 40px;
       justify-content: center;
+      padding: 40px;
     }
 
     /* Image Styling */
     .product-detail img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      max-width: 100%;
+      width: 450px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
     }
 
-    /* Text and Description */
+    .product-detail img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Text Styling */
     h2 {
-      font-size: 2rem;
-      color: #333;
-      margin-bottom: 15px;
+      font-size: 2.5rem;
+      color: #2d3436;
+      margin-bottom: 20px;
+      font-weight: 600;
+      line-height: 1.4;
     }
 
     .description {
-      font-size: 1.2rem;
-      color: #666;
-      line-height: 1.5;
-      margin-bottom: 20px;
+      font-size: 1.15rem;
+      color: #7f8c8d;
+      margin-bottom: 25px;
+      line-height: 1.8;
+      max-width: 650px;
     }
 
     .price {
-      font-size: 1.6rem;
+      font-size: 2rem;
       color: #E67E22;
-      font-weight: 600;
-      margin-bottom: 25px;
+      font-weight: 700;
+      margin-bottom: 30px;
     }
 
     /* Button Styling */
     .buttons {
       display: flex;
-      gap: 15px;
-      justify-content: flex-start;
+      gap: 20px;
+      align-items: center; /* Align buttons horizontally */
     }
 
     .buy-btn, .add-to-cart-btn {
-      padding: 12px 25px;
-      border-radius: 6px;
+      padding: 16px 32px;
+      border-radius: 50px;
       border: none;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       cursor: pointer;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease;
+      text-align: center;
+      width: 100%;
+      max-width: 280px;
+      font-weight: 600;
     }
 
+    /* Change Buy Now button color to red */
     .buy-btn {
-      background-color: #E67E22;
+      background-color: #e74c3c; /* Red color */
       color: #fff;
-      box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
     }
 
     .buy-btn:hover {
-      background-color: #D35400;
-      box-shadow: 0 6px 12px rgba(230, 126, 34, 0.5);
+      background-color: #c0392b; /* Darker red */
+      box-shadow: 0 6px 25px rgba(231, 76, 60, 0.4);
+      transform: scale(1.05);
     }
 
+    /* Change Add to Cart button color to green */
     .add-to-cart-btn {
-      background-color: #3498db;
+      background-color: #2ecc71; /* Green color */
       color: #fff;
-      box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+      box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
     }
 
     .add-to-cart-btn:hover {
-      background-color: #2980b9;
-      box-shadow: 0 6px 12px rgba(52, 152, 219, 0.5);
+      background-color: #27ae60; /* Darker green */
+      box-shadow: 0 6px 25px rgba(46, 204, 113, 0.4);
+      transform: scale(1.05);
     }
 
-    /* Mobile Responsiveness */
+    /* Responsive Design */
     @media (max-width: 768px) {
       .product-detail {
         flex-direction: column;
@@ -114,7 +132,7 @@
       }
 
       h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
 
       .description {
@@ -122,13 +140,13 @@
       }
 
       .price {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
 
       .buttons {
-        flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
+        flex-direction: column; /* Stack buttons vertically on smaller screens */
       }
     }
   </style>
@@ -145,9 +163,7 @@
         <button class="buy-btn">Buy Now</button>
         <a href="{% url 'add_to_cart' product.id %}">
           <button class="add-to-cart-btn">Add to Cart</button>
-      </a>
-      
-        
+        </a>
       </div>
     </div>
   </section>

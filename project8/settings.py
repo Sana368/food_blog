@@ -132,3 +132,10 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR,'C:/Users/LENOVO/project8/project8/stati
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+  # This will be the default URL where users will be redirected if not logged in
+
+
+RAZORPAY_KEY_ID ='rzp_test_N8OgX89d5kCevO'
+RAZORPAY_KEY_SECRET= '0cq7vuOGLWy4A6Fw4fV5c0tM'

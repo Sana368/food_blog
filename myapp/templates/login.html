@@ -7,102 +7,117 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff8f0; /* Light peach background to suit a food blog */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://www.example.com/food-background.jpg'); /* Replace with your own food-themed background image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
-.login-container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background for readability */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px); /* Add a blur effect to the background */
+        }
 
-h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-}
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            font-family: 'Lobster', cursive; /* Fun font to match the food theme */
+        }
 
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
 
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #555;
-}
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #6d4c41; /* Soft brown color */
+        }
 
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fafafa;
-}
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #e4a48d; /* Light peach border */
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
 
-.input-group input:focus {
-    border-color: #007BFF;
-    outline: none;
-}
+        .input-group input:focus {
+            border-color: #f0a500; /* Orange highlight for focus state */
+            outline: none;
+        }
 
-.login-btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            background-color: #f0a500; /* Warm orange color */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.login-btn:hover {
-    background-color: #0056b3;
-}
+        .login-btn:hover {
+            background-color: #e08e00; /* Darker shade on hover */
+        }
 
-.footer {
-    margin-top: 15px;
-}
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
 
-.footer a {
-    font-size: 14px;
-    color: #007BFF;
-    text-decoration: none;
-    margin: 0 10px;
-}
+        .footer a {
+            color: #f0a500; /* Match footer links with the button color */
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
 
-.footer a:hover {
-    text-decoration: underline;
-}
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: #ff6f61; /* Red-orange color for error messages */
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
 
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Login to Your Foodie Account</h2>
         {% if messages %}
-            {% for message in messages %} 
+            {% for message in messages %}
                 <p class="error-message">{{ message }}</p>
-             {% endfor %}
+            {% endfor %}
         {% endif %}
         <form action="#" method="POST">
             {% csrf_token %}

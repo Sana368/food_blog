@@ -49,7 +49,7 @@ def login1_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return redirect('food_product')
         else:
             messages.error(request, 'invalid username or password')
 
@@ -76,9 +76,12 @@ def signup(request):
          messages.error(request, 'Passwords do not match')
 
     return render(request,"signup.html")
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
+@login_required(login_url='login1_view')  # Redirects to 'user_login' if the user is not logged in
 def food_product(request):
-    return render(request,'product.html')
+    return render(request, 'product.html')
 
 # def food(request):
 #     return render(request,'food.html')
@@ -198,7 +201,7 @@ def add_to_cart(request, product_id):
 
     messages.success(request, f"{product.name} added to your cart.")
     return redirect('cart_page')
-
+@login_required(login_url='login1_view')
 # View the cart page
 def cart_page(request):
     cart_items = CartItem.objects.filter(user=request.user)
@@ -376,3 +379,56 @@ def order_summary(request, order_id):
     })
 
 
+
+from django.conf import settings
+
+from django.http import JsonResponse
+from .models import Order
+
+import razorpay
+from django.conf import settings
+
+client=razorpay.Client(auth=(settings.RAZORPAY_KEY_ID,settings.RAZORPAY_KEY_SECRET))
+
+from django.shortcuts import redirect
+
+def razorpay_payment(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        order = Order.objects.get(id=order_id)
+        total_amount = order.total_price  # Assuming you have a field 'total_price' in your Order model
+        # Create a Razorpay payment object here and return the response
+        # After successful payment, redirect to the receipt URL
+        return redirect('receipt',order_id=order_id)
+    return JsonResponse({'error': 'Invalid Request'})
+
+
+
+
+from django.shortcuts import render
+from django.shortcuts import render
+
+def receipt(request):
+    # Retrieve the latest order from the database (assuming the latest order is the one to display)
+    latest_order = Order.objects.latest('id')
+
+    context = {'order': latest_order}
+    return render(request, 'receipt.html', context)
+
+
+from django.shortcuts import render
+from .models import Order  # Import your Order model (adjust the import according to your project structure)
+
+@login_required
+def receipt_history(request):
+    orders = Order.objects.filter(user=request.user).order_by('order_date')
+
+    return render(request, 'receipt_history.html', {
+        'orders': orders
+    })
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login1_view')
+    

@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt History</title>
+    <!-- Add your CSS links here -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/receipt.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            padding: 50px 0;
+        }
+
+        .hero-section h1 {
+            font-size: 36px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .history_section {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .history_section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        .receipt_card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .receipt_card:hover {
+            box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .receipt_card h5 {
+            font-size: 22px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .receipt_card p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .receipt_card p strong {
+            font-weight: bold;
+        }
+
+        .product-details {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .product-details ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .product-details li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-details img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .product-details span {
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .btn-view-receipt {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-view-receipt:hover {
+            background-color: #0056b3;
+        }
+
+        .product-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 28px;
+            }
+
+            .receipt_card {
+                padding: 20px;
+            }
+
+            .product-details span {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Add your header content here -->
+</header>
+
+<section class="hero-section">
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1><u>My Orders</u></h1>
+        </div>
+        {% if orders %}
+        <div class="row">
+            {% for order in orders %}
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="receipt_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Order #{{ order.id }}</h5>
+                        <hr>
+                        <div class="product-details">
+                            <strong>Items:</strong>
+                            <ul>
+                                {% for item in order.items.all %}
+                                <li>
+                                    <!-- Product Image -->
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                    <span>{{ item.product.name }} - {{ item.quantity }}</span>
+                                    <span>${{ item.total_price|floatformat:2 }}-{{item.price}}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- Total Price -->
+                        <p><strong>Total Price: </strong>${{ order.total_price|floatformat:2 }}</p>
+                        <!-- Button -->
+                        <a href="{% url 'receipt' %}" class="btn-view-receipt">View Receipt</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center">No orders found</p>
+        {% endif %}
+    </div>
+</section>
+
+<footer>
+    <!-- Add your footer content here -->
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>
